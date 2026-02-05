@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question 💖</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.card {
+    background: rgba(255,255,255,0.9);
+    padding: 20px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 2;
+}
+
+.card img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    color: #ff4d6d;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 14px 26px;
+    font-size: 18px;
+    border: none;
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#yes {
+    background: #ff4d6d;
+    color: white;
+}
+
+#no {
+    background: #ccc;
+    position: relative;
+}
+
+/* ❤️ COEURS */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 24px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-110vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="C:\Users\fabri\OneDrive\Desktop\demande copine\index.html\music.mp3.mp3" preload="auto"></audio>
+
+<div class="card" onclick="startMusic()">
+    <img src="C:\Users\fabri\OneDrive\Desktop\demande copine\index.html\photo.jpg.jpeg">
+
+    <h1>ELVIRE DAGO 💕<br>veux-tu être ma copine ?</h1>
+
+    <button id="yes" onclick="yes()">OUI 😍</button>
+    <button id="no" onclick="moveNo()">NON 😒</button>
+
+    <p style="font-size:12px;color:#888;">
+        (touche l’écran 💖 pour démarrer la musique)
+    </p>
+</div>
+
+<script>
+let started = false;
+let messages = [
+    "Tu es sûre ? 😭",
+    "S’il te plaît 🥺",
+    "Pour l’amour de Dieu 🙏",
+    "Je t’en supplie 💔",
+    "Dis oui 😢"
+];
+let i = 0;
+
+// démarrer musique iPhone + cœurs
+function startMusic() {
+    if (!started) {
+        document.getElementById("music").play().catch(()=>{});
+        started = true;
+        hearts();
+    }
+}
+
+// bouton NON qui bouge dès qu’on clique dessus
+function moveNo() {
+    startMusic();
+    let btn = document.getElementById("no");
+    btn.innerText = messages[i];
+    i = (i + 1) % messages.length;
+
+    let x = Math.random() * 200 - 100;
+    let y = Math.random() * 150 - 75;
+    btn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+// bouton OUI : musique continue même après
+function yes() {
+    startMusic();
+    document.querySelector(".card").innerHTML = `
+        <h1>🥰❤️ OUIII !!! ❤️🥰<br>YES JE SUS LE PLUS HEUREUX</h1>
+    `;
+}
+
+// animation des cœurs
+function hearts() {
+    setInterval(() => {
+        let h = document.createElement("div");
+        h.className = "heart";
+        h.innerText = "❤️";
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.fontSize = (20 + Math.random() * 20) + "px";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 6000);
+    }, 500);
+}
+</script>
+
+</body>
+</html>
